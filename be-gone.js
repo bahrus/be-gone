@@ -16,15 +16,15 @@ class BeGone extends BE {
     static config = {
         propInfo: {
             ...propInfo,
-            whenStr: {},
+            whenDef: {},
             onDefined: {},
-            onEmptyContents: {},
+            whenMissing: {},
         },
         positractions: [resolved, rejected],
         compacts: {
             when_onDefined_changes_call_onOnDefined: 0,
-            when_onEmptyContents_changes_call_onOnEmptyContents: 0,
-            when_whenStr_changes_call_parseWhen: 0,
+            when_whenMissing_changes_call_hydrateOnMissing: 0,
+            when_whenDef_changes_call_parseWhenDef: 0,
         }
     };
 
@@ -34,17 +34,10 @@ class BeGone extends BE {
      * 
      * @param {BAP} self 
      */
-    parseWhen(self){
-        const {whenStr} = self;
-        if(whenStr === 'contents are empty'){
-            return  /** @type {PAP} */ ({
-                onEmptyContents: true
-            });
-        }
-        const withoutIsDefined = whenStr.replace(' is defined', '').trim();
-        const customElementNames = withoutIsDefined.split(',').map(s => s.trim());
+    parseWhenDef(self){
+        const {whenDef} = self;
         return  /** @type {PAP} */ ({
-            onDefined: customElementNames
+            onDefined: whenDef.split(' ').map(s => s.trim()).filter(s => !s),
         });
     }
 
@@ -74,18 +67,18 @@ class BeGone extends BE {
      * @param {BAP} self 
      * @returns 
      */
-    async onOnEmptyContents(self){
-        const {enhancedElement} = self;
+    async hydrateOnMissing(self){
+        const {enhancedElement, whenMissing} = self;
         //when enhancedElement contains no children, remove enhancementElement
         //use mutation observer to detect changes
-        if(enhancedElement.children.length === 0){
+        if(!enhancedElement.querySelector(whenMissing)){
             enhancedElement.remove();
             return /** @type {PAP} */ ({
                 resolved: true
             });
         }
         const mutObserver = this.#mutObserver = new MutationObserver(() => {
-            if(enhancedElement.children.length === 0){
+            if(!enhancedElement.querySelector(whenMissing)){
                 mutObserver.disconnect();
                 enhancedElement.remove();
             }

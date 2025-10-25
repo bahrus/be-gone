@@ -8,7 +8,7 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
  */
 export const emc = {
     base: 'be-gone',
-    branches: ['', 'when'],
+    branches: ['', 'when-defined', 'when-missing'],
     map: {
         '0.0': {
             instanceOf: 'Object',
@@ -17,7 +17,11 @@ export const emc = {
         },
         '1.0': {
             instanceOf: 'String',
-            mapsTo: 'whenStr',
+            mapsTo: 'whenDef',
+        },
+        '2.0': {
+            instanceOf: 'String',
+            mapsTo: 'whenMissing'
         }
     },
     enhPropKey: 'beGone',
