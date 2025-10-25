@@ -2,9 +2,30 @@
   "name": "be-gone",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "be-gone.js",
+  "module": "be-gone.js",
+  "type": "module",
+  "types": "./ts-refs/be-gone/types.d.ts",
+  "files": [
+    "*.js",
+    "./ts-refs/be-gone/types.d.ts",
+    "README.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "serve": "node ./node_modules/spa-ssi/serve.js",
+    "safari": "npx playwright wk http://localhost:8000",
+    "update": "ncu -u && npm install"
+  },
+  "dependencies": {
+    "be-enhanced": "0.0.189",
+    "be-hive": "0.0.267",
+    "mount-observer": "0.0.105",
+    "trans-render": "0.0.960"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "spa-ssi": "0.0.23"
   },
   "repository": {
     "type": "git",

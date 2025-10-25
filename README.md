@@ -6,7 +6,7 @@
 
 <div be-gone-when="contents are empty.">
   <label>...</label>
-  <input>...</input>
+  <input>...
 </div> 
 ```
 
