@@ -13,11 +13,20 @@
     <div be-gone-when="my-component is defined">
         <label id=label>I am here</label>
     </div>
+    <div id=target></div>
     <button onclick="define()">Define</button>
     <script>
-        function define(){
+        function runTest(){
             customElements.define('my-component', class extends HTMLElement{});
+            setTimeout(() => {
+                if(document.querySelector('[be-gone-when]') === null){
+                    target.setAttribute('mark', 'good');
+                }
+            }, 16);
         }
+        setTimeout(() => {
+            runTest();
+        }, 500);
     </script>
 </body>
 </html>
