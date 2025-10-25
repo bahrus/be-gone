@@ -16,6 +16,84 @@
 </div> 
 ```
 
+
+## Fancy example
+
+The following results in 0 layout shift:
+
+```html
+<form>
+    <fieldset style="max-height:488px;overflow:hidden;" itemscope disabled name=tasks>
+        <!-- These temporary elements serve as functional stand-in elements while web component loads-->
+        <div be-gone-when-missing=div>
+            <div class=stand-in be-gone-when-missing="*">
+                <label data-id="{{| createDemoLabel}}" data-for={{createDemo}}>Create demo</label>
+                <input data-id="{{@ createDemo}}" type=checkbox>
+            </div>
+
+            <div class=stand-in be-gone-when-missing="*">
+                <label data-id="{{| writeArticleLabel}}" data-for={{writeArticle}}>Write article</label>
+                <input data-id="{{@ writeArticle}}" type=checkbox>
+            </div>
+
+            <div class=stand-in be-gone-when-missing="*">
+                <label data-id="{{| exerciseLabel}}" data-for={{exercise}}>Exercise</label>
+                <input data-id="{{@ exercise}}" type=checkbox>
+            </div>
+
+            <style be-gone-when="scratch-box is defined">
+                .stand-in {
+                    height:145px;
+                }
+                scratch-box {
+                    display: none;
+                }
+            </style>
+        </div>
+
+
+        <style>
+            scratch-box {
+                height: 145px;
+            }
+        </style>
+
+        
+        <!-- End of temporary elements -->
+        <scratch-box defer-enh-soak-up enh-soak-up="
+            name, checked as value
+            from #{{createDemo}}
+        "
+            imp-h="scratch-box/root.mjs">
+
+
+                
+            <span slot=labelTxt defer-soak-up soak-up="
+                textContent, itemprop
+                    from #{{createDemoLabel}}.
+            "></span>
+        </scratch-box>
+        <scratch-box defer-enh-soak-up disabled enh-soak-up="
+            name, checked as value
+            from #{{writeArticle}}
+            ">
+
+            <span slot=labelTxt defer-soak-up soak-up="
+            textContent, itemprop 
+            from #{{writeArticleLabel}}"></span>
+        </scratch-box>
+        <scratch-box defer-enh-soak-up enh-soak-up="
+            name, checked as value 
+            from #{{exercise}}">
+
+            <span -id slot=labelTxt defer-soak-up soak-up="
+                textContent, itemprop from #{{exerciseLabel}}"></span>
+        </scratch-box>
+    </fieldset>
+
+</form>
+```
+
 ## Viewing Locally
 
 Any web server that serves static files (html, css, js) will do but...
