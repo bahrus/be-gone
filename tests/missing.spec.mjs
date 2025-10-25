@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-test('empty', async ({ page }) => {
-    await page.goto('./tests/empty.html');
+test('missing', async ({ page }) => {
+    await page.goto('./tests/missing.html');
     // wait for 1 second
     await page.waitForTimeout(2000);
     const editor = page.locator('#target');
