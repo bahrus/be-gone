@@ -10,12 +10,12 @@
 <style be-gone-when-defined="my-web-component my-other-web-component">
 </style>
 
+<!-- goes away when the specified css query (*) gives empty results -->
 <div be-gone-when-missing="*">
   <label>...</label>
   <input>...
 </div> 
 ```
-
 
 ## Fancy example
 
