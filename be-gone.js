@@ -1,50 +1,62 @@
 // @ts-check
-import { propInfo, rejected, resolved } from 'be-enhanced/cc.js';
-import { BE } from 'be-enhanced/BE.js';
-import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
-/** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
-/** @import {Actions, PAP, AllProps, AP, BAP} from './ts-refs/be-gone/types' */;
+/** @import {Actions, PAP, AllProps, AP} from './types/be-gone/types' */;
+/** @import {RoundaboutOptions} from './types/roundabout/types' */;
+/** @import {ElementEnhancementGateway, SpawnContext} from './types/assign-gingerly/types' */;
+/** @import {EMC} from './types/mount-observer/types' */;
+/** @import {RAConfig} from './types/roundabout/types' */;
 
 /**
  * @implements {Actions}
- * 
  */
-class BeGone extends BE {
+class BeGone {
+
     /**
-     * @type {BEConfig<AP & BEAllProps, Actions & IEnhancement>}
+     * @this {AllProps & Actions}
+     * @param {Element & ElementEnhancementGateway} enhancedElement 
+     * @param {SpawnContext} ctx 
+     * @param {PAP} initVals 
      */
-    static config = {
-        propInfo: {
-            ...propInfo,
-            whenDef: {},
-            onDefined: {},
-            whenMissing: {},
-        },
-        positractions: [resolved, rejected],
-        compacts: {
-            when_onDefined_changes_call_onOnDefined: 0,
-            when_whenMissing_changes_call_hydrateOnMissing: 0,
-            when_whenDef_changes_call_parseWhenDef: 0,
-        }
-    };
-
-    de = de;
+    constructor(enhancedElement, ctx, initVals){
+        this.init(this, enhancedElement, ctx, initVals);
+    }
 
     /**
-     * 
-     * @param {BAP} self 
+     * @param {AllProps} self 
+     * @param {Element & ElementEnhancementGateway} enhancedElement 
+     * @param {SpawnContext} ctx 
+     * @param {PAP} initVals 
+     */
+    async init(self, enhancedElement, ctx, initVals){
+        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions>>} */ (ctx.emc);
+        /**
+         * @type {RoundaboutOptions}
+         */
+        const raOptions = {
+            ...customData,
+            vm: self,
+            initialPropVals: {
+                enhancedElement,
+                ...customData?.defaultPropVals,
+                ...initVals
+            }
+        };
+        (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+    }
+
+    /**
+     * @param {AP} self 
+     * @returns {PAP}
      */
     parseWhenDef(self){
         const {whenDef} = self;
-        return  /** @type {PAP} */ ({
-            onDefined: whenDef.split(' ').map(s => s.trim()).filter(s => !s),
+        return /** @type {PAP} */ ({
+            onDefined: whenDef.split(' ').map(s => s.trim()).filter(s => s.length > 0),
         });
     }
 
     /**
-     * 
-     * @param {BAP} self 
-     * @returns 
+     * @param {AP} self 
+     * @returns {Promise<PAP>}
      */
     async onOnDefined(self){
         const {onDefined, enhancedElement} = self;
@@ -63,14 +75,11 @@ class BeGone extends BE {
     #mutObserver;
 
     /**
-     * 
-     * @param {BAP} self 
-     * @returns 
+     * @param {AP} self 
+     * @returns {Promise<PAP>}
      */
     async hydrateOnMissing(self){
         const {enhancedElement, whenMissing} = self;
-        //when enhancedElement contains no children, remove enhancementElement
-        //use mutation observer to detect changes
         if(!enhancedElement.querySelector(whenMissing)){
             enhancedElement.remove();
             return /** @type {PAP} */ ({
@@ -92,5 +101,4 @@ class BeGone extends BE {
     }
 }
 
-await BeGone.bootUp();
-export {BeGone}
+export { BeGone }

@@ -1,0 +1,29 @@
+{
+    "enhConfig": {
+        "enhKey": "BeGone",
+        "spawn": "be-gone/be-gone.js",
+        "withAttrs": {
+            "base": "be-gone",
+            "whenDef": "${base}-when-defined",
+            "_whenDef": {
+                "instanceOf": "String"
+            },
+            "whenMissing": "${base}-when-missing",
+            "_whenMissing": {
+                "instanceOf": "String"
+            }
+        }
+    },
+    "customData": {
+        "weakRef": {
+            "properties": [
+                "enhancedElement"
+            ]
+        },
+        "compacts": {
+            "when_whenDef_changes_call_parseWhenDef": 0,
+            "when_onDefined_changes_call_onOnDefined": 0,
+            "when_whenMissing_changes_call_hydrateOnMissing": 0
+        }
+    }
+}

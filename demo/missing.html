@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Missing</title>
     <!-- #include virtual="/imports.html" -->
-     <script type=module>
-        import '/emc.js';
-     </script>
+    <be-hive>
+        <script type=emc src="be-gone/emc.json"></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <div be-gone-when-missing="*">
         <label id=label>I am here</label>
     </div>
     <button onclick="label.remove()">Remove</button>
-    
 </body>
 </html>

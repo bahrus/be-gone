@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>When Defined</title>
     <!-- #include virtual="/imports.html" -->
-     <script type=module>
-        import '/emc.js';
-     </script>
+    <be-hive>
+        <script type=emc src="be-gone/emc.json"></script>
+    </be-hive>
+    <script type=module>
+        import 'be-hive/be-hive.js';
+    </script>
 </head>
 <body>
     <div be-gone-when-defined="my-component">
@@ -19,7 +22,7 @@
         function runTest(){
             customElements.define('my-component', class extends HTMLElement{});
             setTimeout(() => {
-                if(document.querySelector('[be-gone-when]') === null){
+                if(document.querySelector('[be-gone-when-defined]') === null){
                     target.setAttribute('mark', 'good');
                 }
             }, 16);

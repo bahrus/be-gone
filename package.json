@@ -1,31 +1,32 @@
 {
   "name": "be-gone",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "be-gone.js",
   "module": "be-gone.js",
   "type": "module",
-  "types": "./ts-refs/be-gone/types.d.ts",
+  "types": "./types/be-gone/types.d.ts",
   "files": [
     "*.js",
-    "./ts-refs/be-gone/types.d.ts",
+    "./types/be-gone/types.d.ts",
     "README.md"
   ],
   "scripts": {
-    "test": "playwright test",
+    "build": "node emc.mjs > emc.json && node 👻.mjs > 👻.json",
     "serve": "node ./node_modules/spa-ssi/serve.js",
+    "test": "playwright test",
     "safari": "npx playwright wk http://localhost:8000",
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-enhanced": "0.0.189",
-    "be-hive": "0.0.267",
-    "mount-observer": "0.0.105",
-    "trans-render": "0.0.960"
+    "be-hive": "0.1.15",
+    "mount-observer": "0.1.41",
+    "roundabout-lib": "0.0.23",
+    "nested-regex-groups": "0.0.7"
   },
   "devDependencies": {
-    "@playwright/test": "1.56.1",
-    "spa-ssi": "0.0.23"
+    "@playwright/test": "1.61.0",
+    "spa-ssi": "0.0.27"
   },
   "repository": {
     "type": "git",
