@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "be-hive": "0.1.15",
-    "mount-observer": "0.1.41",
-    "roundabout-lib": "0.0.23",
+    "mount-observer": "0.1.43",
+    "roundabout-lib": "0.0.30",
     "nested-regex-groups": "0.0.7"
   },
   "devDependencies": {
-    "@playwright/test": "1.61.0",
+    "@playwright/test": "1.62.1",
     "spa-ssi": "0.0.27"
   },
   "repository": {
