@@ -8,6 +8,8 @@
   "types": "./types/be-gone/types.d.ts",
   "files": [
     "*.js",
+    "*.json",
+    "*.mjs",
     "./types/be-gone/types.d.ts",
     "README.md"
   ],
